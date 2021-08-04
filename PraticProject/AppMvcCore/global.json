@@ -1,0 +1,11 @@
+/// <explanation>
+///    Configuration by sdk in my project.
+///    see version sdk wirh command dotnet --info.
+/// <explanation>
+
+{
+  "projects": [ "src", "test" ],
+  "sdk": {
+    "version": "5.0.6"
+  }
+}
