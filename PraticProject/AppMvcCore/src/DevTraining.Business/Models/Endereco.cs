@@ -2,9 +2,8 @@
 
 namespace DevTraining.Business.Models
 {
-    public class Endereco
+    public class Endereco : Entity
     {
-        public Guid FornecedorId { get; set; }
         public string Estado { get; set; }
         public string Cidade { get; set; }
         public string Logradouro { get; set; }
@@ -14,6 +13,7 @@ namespace DevTraining.Business.Models
         public string Numero { get; set; }
 
         //EF Relation
+        public Guid FornecedorId { get; set; }
         public Fornecedor Fornecedor { get; set; }
     }
 }
