@@ -1,5 +1,7 @@
 using DevTraining.App.Data;
+using DevTraining.Business.Interfaces;
 using DevTraining.Data.Context;
+using DevTraining.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -30,14 +32,18 @@ namespace DevTraining.App
             services.AddDbContext<DevTrainingContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<DevTrainingContext, DevTrainingContext>();
-
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-           
+
             services.AddControllersWithViews();
-            
+
             services.AddRazorPages();
+
+            // Injeção de dependência.(remover para forma externa)
+            services.AddScoped<DevTrainingContext>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
