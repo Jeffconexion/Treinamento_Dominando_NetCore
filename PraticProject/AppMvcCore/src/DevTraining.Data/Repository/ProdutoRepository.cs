@@ -22,7 +22,7 @@ namespace DevTraining.Data.Repository
         public async Task<IEnumerable<Produto>> ObterProdutosFornecedores()
         {
             return await Banco.Produtos.AsNoTracking()
-                              .Include(p => p.Fornecedor)
+                              .Include(f => f.Fornecedor)
                               .OrderBy(p => p.Nome).ToListAsync();
         }
 
@@ -32,3 +32,4 @@ namespace DevTraining.Data.Repository
         }
     }
 }
+

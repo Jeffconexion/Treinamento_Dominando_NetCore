@@ -35,6 +35,10 @@ namespace DevTraining.App.Models
         public bool Ativo { get; set; }
 
         //EF Relations
+        [Required(ErrorMessage = "O campo {0} é obrigatório!")]
+        [DisplayName("Fornecedor")]
+        public Guid FornecedorId { get; set; }
+
         public FornecedorViewModel Fornecedor { get; set; }
 
         public IEnumerable<FornecedorViewModel> Fornecedores { get; set; }
