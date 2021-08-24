@@ -12,18 +12,17 @@ namespace DevTraining.Data.Repository
     public class ProdutoRepository : Repository<Produto>, IProdutoRepository
     {
         public ProdutoRepository(DevTrainingContext context) : base(context) { }
+
         public async Task<Produto> ObterProdutoFornecedor(Guid id)
         {
-            return await Banco.Produtos.AsNoTracking()
-                              .Include(p => p.Fornecedor)
-                              .FirstOrDefaultAsync(p => p.Id == id);
+            return await Db.Produtos.AsNoTracking().Include(f => f.Fornecedor)
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<IEnumerable<Produto>> ObterProdutosFornecedores()
         {
-            return await Banco.Produtos.AsNoTracking()
-                              .Include(f => f.Fornecedor)
-                              .OrderBy(p => p.Nome).ToListAsync();
+            return await Db.Produtos.AsNoTracking().Include(f => f.Fornecedor)
+                .OrderBy(p => p.Nome).ToListAsync();
         }
 
         public async Task<IEnumerable<Produto>> ObterProdutosPorFornecedor(Guid fornecedorId)

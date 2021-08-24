@@ -11,10 +11,10 @@ namespace DevTraining.Data.Repository
     {
         public EnderecoRepository(DevTrainingContext context) : base(context) { }
 
-        public async Task<Endereco> ObterEnderecoPorFornecedor(Guid FornecedorId)
+        public async Task<Endereco> ObterEnderecoPorFornecedor(Guid fornecedorId)
         {
-            return await Banco.Enderecos.AsNoTracking()
-                              .FirstOrDefaultAsync(f => f.FornecedorId == FornecedorId);
+            return await Db.Enderecos.AsNoTracking()
+                .FirstOrDefaultAsync(f => f.FornecedorId == fornecedorId);
         }
     }
 }

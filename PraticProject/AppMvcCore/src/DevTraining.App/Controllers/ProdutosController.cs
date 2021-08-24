@@ -21,11 +21,12 @@ namespace DevTraining.App.Controllers
         {
             _produtoRepository = produtoRepository;
             _fornecedorRepository = fornecedorRepository;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
         {
-            return View(_mapper?.Map<IEnumerable<ProdutoViewModel>>(await _produtoRepository.ObterProdutosFornecedores()));
+            return View(_mapper.Map<IEnumerable<ProdutoViewModel>>(await _produtoRepository.ObterProdutosFornecedores()));
 
         }
 
@@ -35,7 +36,9 @@ namespace DevTraining.App.Controllers
             var produtoViewModel = await ObterProduto(id);
 
             if (produtoViewModel == null)
+            {
                 return NotFound();
+            }
 
             return View(produtoViewModel);
         }
@@ -51,8 +54,7 @@ namespace DevTraining.App.Controllers
         public async Task<IActionResult> Create(ProdutoViewModel produtoViewModel)
         {
             produtoViewModel = await PopularFornecedores(produtoViewModel);
-            if (!ModelState.IsValid)
-                return View(produtoViewModel);
+            if (!ModelState.IsValid) return View(produtoViewModel);
 
             await _produtoRepository.Adicionar(_mapper.Map<Produto>(produtoViewModel));
             return View(produtoViewModel);
@@ -63,7 +65,9 @@ namespace DevTraining.App.Controllers
             var produtoViewModel = await ObterProduto(id);
 
             if (produtoViewModel == null)
-                NotFound();
+            {
+                return NotFound();
+            }
 
             return View(produtoViewModel);
         }
@@ -84,10 +88,12 @@ namespace DevTraining.App.Controllers
 
         public async Task<IActionResult> Delete(Guid id)
         {
-            var produto = ObterProduto(id);
+            var produto = await ObterProduto(id);
 
             if (produto == null)
+            {
                 return NotFound();
+            }
 
             return View(produto);
         }
@@ -106,6 +112,8 @@ namespace DevTraining.App.Controllers
             return RedirectToAction("Index");
         }
 
+        
+
         private async Task<ProdutoViewModel> ObterProduto(Guid id)
         {
             var produto = _mapper.Map<ProdutoViewModel>(await _produtoRepository.ObterProdutoFornecedor(id));
@@ -118,6 +126,5 @@ namespace DevTraining.App.Controllers
             produto.Fornecedores = _mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos());
             return produto;
         }
-
     }
 }

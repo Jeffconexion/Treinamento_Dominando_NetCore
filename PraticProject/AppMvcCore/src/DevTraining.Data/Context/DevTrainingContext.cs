@@ -24,13 +24,13 @@ namespace DevTraining.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Se por ventura esquecer de mapear alguma propriedade.
-            //foreach (var property in modelBuilder.Model.GetEntityTypes()
-            //    .SelectMany(e => e.GetProperties()
-            //        .Where(p => p.ClrType == typeof(string))))
-            //    property.SetColumnType("varchar(100)");
 
-            //Nova forma para configurar o mapping
+
+            foreach (var property in modelBuilder.Model.GetEntityTypes()
+               .SelectMany(e => e.GetProperties()
+                   .Where(p => p.ClrType == typeof(string))))
+                property.SetColumnType("varchar(100)");
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(DevTrainingContext).Assembly);
 
             //desabilitando a exclusão via cascade

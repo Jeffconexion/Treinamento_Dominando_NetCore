@@ -12,6 +12,5 @@ namespace DevTraining.App.AutoMapper
             CreateMap<Endereco, EnderecoViewModel>().ReverseMap();
             CreateMap<Produto, ProdutoViewModel>().ReverseMap();
         }
-
     }
 }

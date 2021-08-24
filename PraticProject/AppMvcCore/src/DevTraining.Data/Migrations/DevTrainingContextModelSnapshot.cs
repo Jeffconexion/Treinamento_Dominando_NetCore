@@ -15,7 +15,7 @@ namespace DevTraining.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.14")
+                .HasAnnotation("ProductVersion", "3.1.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -27,27 +27,21 @@ namespace DevTraining.Data.Migrations
 
                     b.Property<string>("Bairro")
                         .IsRequired()
-                        .HasColumnName("bairro")
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("varchar(100)");
 
                     b.Property<string>("Cep")
                         .IsRequired()
-                        .HasColumnName("cep")
                         .HasColumnType("varchar(8)");
 
                     b.Property<string>("Cidade")
                         .IsRequired()
-                        .HasColumnName("cidade")
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("Complemento")
-                        .IsRequired()
-                        .HasColumnName("complemento")
                         .HasColumnType("varchar(250)");
 
                     b.Property<string>("Estado")
                         .IsRequired()
-                        .HasColumnName("estado")
                         .HasColumnType("varchar(50)");
 
                     b.Property<Guid>("FornecedorId")
@@ -55,12 +49,10 @@ namespace DevTraining.Data.Migrations
 
                     b.Property<string>("Logradouro")
                         .IsRequired()
-                        .HasColumnName("logradouro")
                         .HasColumnType("varchar(200)");
 
                     b.Property<string>("Numero")
                         .IsRequired()
-                        .HasColumnName("numero")
                         .HasColumnType("varchar(50)");
 
                     b.HasKey("Id");
@@ -68,7 +60,7 @@ namespace DevTraining.Data.Migrations
                     b.HasIndex("FornecedorId")
                         .IsUnique();
 
-                    b.ToTable("t_endereco");
+                    b.ToTable("Enderecos");
                 });
 
             modelBuilder.Entity("DevTraining.Business.Models.Fornecedor", b =>
@@ -78,17 +70,14 @@ namespace DevTraining.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Ativo")
-                        .HasColumnName("ativo")
                         .HasColumnType("bit");
 
                     b.Property<string>("Documento")
                         .IsRequired()
-                        .HasColumnName("documento")
                         .HasColumnType("varchar(14)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnName("nome")
                         .HasColumnType("varchar(200)");
 
                     b.Property<int>("TipoFornecedor")
@@ -96,7 +85,7 @@ namespace DevTraining.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("t_fornecedor");
+                    b.ToTable("Fornecedores");
                 });
 
             modelBuilder.Entity("DevTraining.Business.Models.Produto", b =>
@@ -106,7 +95,6 @@ namespace DevTraining.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Ativo")
-                        .HasColumnName("ativo")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("DataCadastro")
@@ -114,7 +102,6 @@ namespace DevTraining.Data.Migrations
 
                     b.Property<string>("Descricao")
                         .IsRequired()
-                        .HasColumnName("descricao")
                         .HasColumnType("varchar(1000)");
 
                     b.Property<Guid>("FornecedorId")
@@ -122,23 +109,20 @@ namespace DevTraining.Data.Migrations
 
                     b.Property<string>("Imagem")
                         .IsRequired()
-                        .HasColumnName("imagem")
                         .HasColumnType("varchar(100)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnName("nome")
                         .HasColumnType("varchar(200)");
 
                     b.Property<decimal>("Valor")
-                        .HasColumnName("valor")
-                        .HasColumnType("decimal(5,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("FornecedorId");
 
-                    b.ToTable("t_produto");
+                    b.ToTable("Produtos");
                 });
 
             modelBuilder.Entity("DevTraining.Business.Models.Endereco", b =>

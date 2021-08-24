@@ -12,16 +12,16 @@ namespace DevTraining.Data.Repository
 {
     public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
     {
-        protected readonly DevTrainingContext Banco;
+        protected readonly DevTrainingContext Db;
         protected readonly DbSet<TEntity> DbSet;
 
-        public Repository(DevTrainingContext banco)
+        protected Repository(DevTrainingContext db)
         {
-            Banco = banco;
-            DbSet = banco.Set<TEntity>();
+            Db = db;
+            DbSet = db.Set<TEntity>();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> Buscar(Expression<Func<TEntity, bool>> predicate)
+        public async Task<IEnumerable<TEntity>> Buscar(Expression<Func<TEntity, bool>> predicate)
         {
             return await DbSet.AsNoTracking().Where(predicate).ToListAsync();
         }
@@ -50,19 +50,18 @@ namespace DevTraining.Data.Repository
 
         public virtual async Task Remover(Guid id)
         {
-            var entity = new TEntity { Id = id };// palavra new no metodo class permite estanciar.
-            DbSet.Remove(entity);
+            DbSet.Remove(new TEntity { Id = id });
             await SaveChanges();
         }
 
         public async Task<int> SaveChanges()
         {
-            return await Banco.SaveChangesAsync();
+            return await Db.SaveChangesAsync();
         }
 
         public void Dispose()
         {
-            Banco?.Dispose();
+            Db?.Dispose();
         }
     }
 }

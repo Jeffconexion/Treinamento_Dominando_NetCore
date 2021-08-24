@@ -8,30 +8,21 @@ namespace DevTraining.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Produto> builder)
         {
-            builder.ToTable("t_produto");
-            builder.HasKey(x => x.Id);
+            builder.HasKey(p => p.Id);
 
-            builder.Property(x => x.Nome)
+            builder.Property(p => p.Nome)
                 .IsRequired()
-                .HasColumnType("varchar(200)")
-                .HasColumnName("nome");
+                .HasColumnType("varchar(200)");
 
-            builder.Property(x => x.Descricao)
-               .IsRequired()
-               .HasColumnType("varchar(1000)")
-               .HasColumnName("descricao");
+            builder.Property(p => p.Descricao)
+                .IsRequired()
+                .HasColumnType("varchar(1000)");
 
-            builder.Property(x => x.Imagem)
-               .IsRequired()
-               .HasColumnType("varchar(100)")
-               .HasColumnName("imagem");
+            builder.Property(p => p.Imagem)
+                .IsRequired()
+                .HasColumnType("varchar(100)");
 
-            builder.Property(x => x.Valor)
-              .HasColumnType("decimal(5,2)")
-              .HasColumnName("valor");
-
-            builder.Property(x => x.Ativo)
-              .HasColumnName("ativo");
+            builder.ToTable("Produtos");
         }
     }
 }

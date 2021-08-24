@@ -8,6 +8,5 @@ namespace DevTraining.Business.Interfaces
     {
         Task<Fornecedor> ObterFornecedorEndereco(Guid id);
         Task<Fornecedor> ObterFornecedorProdutosEndereco(Guid id);
-
     }
 }

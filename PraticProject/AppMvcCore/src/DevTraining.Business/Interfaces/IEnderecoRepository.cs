@@ -6,6 +6,6 @@ namespace DevTraining.Business.Interfaces
 {
     public interface IEnderecoRepository : IRepository<Endereco>
     {
-        Task<Endereco> ObterEnderecoPorFornecedor(Guid FornecedorId);
+        Task<Endereco> ObterEnderecoPorFornecedor(Guid fornecedorId);
     }
 }
