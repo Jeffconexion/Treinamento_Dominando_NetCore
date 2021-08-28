@@ -33,7 +33,7 @@ namespace DevTraining.Data.Repository
 
         public virtual async Task<List<TEntity>> ObterTodos()
         {
-            return await DbSet.ToListAsync();
+            return await DbSet.AsNoTracking().ToListAsync();
         }
 
         public virtual async Task Adicionar(TEntity entity)
@@ -43,7 +43,8 @@ namespace DevTraining.Data.Repository
         }
 
         public virtual async Task Atualizar(TEntity entity)
-        {
+        {          
+
             DbSet.Update(entity);
             await SaveChanges();
         }
@@ -63,5 +64,7 @@ namespace DevTraining.Data.Repository
         {
             Db?.Dispose();
         }
+
+        
     }
 }

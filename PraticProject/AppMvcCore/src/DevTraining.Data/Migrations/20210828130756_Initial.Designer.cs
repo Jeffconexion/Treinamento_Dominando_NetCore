@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevTraining.Data.Migrations
 {
     [DbContext(typeof(DevTrainingContext))]
-    [Migration("20210823214313_v4")]
-    partial class v4
+    [Migration("20210828130756_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -118,7 +118,7 @@ namespace DevTraining.Data.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.HasKey("Id");
 
@@ -132,6 +132,7 @@ namespace DevTraining.Data.Migrations
                     b.HasOne("DevTraining.Business.Models.Fornecedor", "Fornecedor")
                         .WithOne("Endereco")
                         .HasForeignKey("DevTraining.Business.Models.Endereco", "FornecedorId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -140,6 +141,7 @@ namespace DevTraining.Data.Migrations
                     b.HasOne("DevTraining.Business.Models.Fornecedor", "Fornecedor")
                         .WithMany("Produtos")
                         .HasForeignKey("FornecedorId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

@@ -116,7 +116,7 @@ namespace DevTraining.Data.Migrations
                         .HasColumnType("varchar(200)");
 
                     b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.HasKey("Id");
 
@@ -130,6 +130,7 @@ namespace DevTraining.Data.Migrations
                     b.HasOne("DevTraining.Business.Models.Fornecedor", "Fornecedor")
                         .WithOne("Endereco")
                         .HasForeignKey("DevTraining.Business.Models.Endereco", "FornecedorId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -138,6 +139,7 @@ namespace DevTraining.Data.Migrations
                     b.HasOne("DevTraining.Business.Models.Fornecedor", "Fornecedor")
                         .WithMany("Produtos")
                         .HasForeignKey("FornecedorId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

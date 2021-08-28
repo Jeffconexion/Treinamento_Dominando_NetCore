@@ -10,5 +10,6 @@ namespace DevTraining.Business.Interfaces
         Task<IEnumerable<Produto>> ObterProdutosPorFornecedor(Guid fornecedorId);
         Task<IEnumerable<Produto>> ObterProdutosFornecedores();
         Task<Produto> ObterProdutoFornecedor(Guid id);
+        
     }
 }

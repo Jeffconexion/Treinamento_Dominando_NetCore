@@ -29,7 +29,6 @@ namespace DevTraining.App.Controllers
         public async Task<IActionResult> Index()
         {
             return View(_mapper.Map<IEnumerable<ProdutoViewModel>>(await _produtoRepository.ObterProdutosFornecedores()));
-
         }
 
 
@@ -56,7 +55,7 @@ namespace DevTraining.App.Controllers
         public async Task<IActionResult> Create(ProdutoViewModel produtoViewModel)
         {
             produtoViewModel = await PopularFornecedores(produtoViewModel);
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
                 return View(produtoViewModel);
 
             var imgPrefixo = Guid.NewGuid() + "-";//Para que a imagem seja única
@@ -89,10 +88,33 @@ namespace DevTraining.App.Controllers
             if (id != produtoViewModel.Id)
                 return NotFound();
 
+            var produtoAtualizacao = await ObterProduto(id);
+
+            produtoViewModel.Fornecedor = produtoAtualizacao.Fornecedor;
+            produtoViewModel.Imagem = produtoAtualizacao.Imagem;
+
             if (!ModelState.IsValid)
                 return View(produtoViewModel);
 
-            await _produtoRepository.Atualizar(_mapper.Map<Produto>(produtoViewModel));
+            if (produtoViewModel.ImagemUpload != null)
+            {
+                var imgPrefixo = Guid.NewGuid() + "_";
+                if (!await UploadArquivo(produtoViewModel.ImagemUpload, imgPrefixo))
+                {
+                    return View(produtoViewModel);
+                }
+
+                produtoAtualizacao.Imagem = imgPrefixo + produtoViewModel.ImagemUpload.FileName;
+            }            
+
+            produtoAtualizacao.Nome = produtoViewModel.Nome;
+            produtoAtualizacao.Descricao = produtoViewModel.Descricao;
+            produtoAtualizacao.Valor = produtoViewModel.Valor;
+            produtoAtualizacao.Ativo = produtoViewModel.Ativo;
+
+            var produtoAtualizado = _mapper.Map<Produto>(produtoAtualizacao);
+
+            await _produtoRepository.Atualizar(produtoAtualizado);
             return RedirectToAction("Index");
         }
 
@@ -121,8 +143,6 @@ namespace DevTraining.App.Controllers
 
             return RedirectToAction("Index");
         }
-
-
 
         private async Task<ProdutoViewModel> ObterProduto(Guid id)
         {
