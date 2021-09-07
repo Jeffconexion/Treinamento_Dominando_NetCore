@@ -4,20 +4,21 @@
     ViewData["Title"] = "Novo Produto";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h3 style="padding-top: 50px">@ViewData["Title"] </h3>
 
 <hr />
 <div class="row">
     <div class="col-md-10">
         <form enctype="multipart/form-data" asp-action="Create">
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="FornecedorId" class="control-label"></label>
-                <select asp-for="FornecedorId" class="form-control" asp-items="@(new SelectList(Model.Fornecedores, "Id","Nome"))">
+                <select asp-for="FornecedorId" class="form-control" asp-items="@(new SelectList(Model.Fornecedores, "Id", "Nome"))">
                     <option></option>
                 </select>
-                <span asp-validation-for="FornecedorId" class="text-danger"></span>
 
+                <span asp-validation-for="FornecedorId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Nome" class="control-label"></label>
@@ -26,7 +27,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Descricao" class="control-label"></label>
-                <input asp-for="Descricao" class="form-control" />
+                <textarea cols="40" rows="5" asp-for="Descricao" class="form-control"></textarea>
                 <span asp-validation-for="Descricao" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -52,9 +53,7 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Cadastrar" class="btn btn-primary" />
-
-                <a class="btn btn-secondary" asp-action="Index">Voltar</a>
-
+                <a class="btn btn-info" asp-action="Index">Voltar</a>
             </div>
         </form>
     </div>
