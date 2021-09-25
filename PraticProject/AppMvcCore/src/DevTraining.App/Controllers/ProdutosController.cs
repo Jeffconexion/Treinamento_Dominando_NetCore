@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace DevTraining.App.Controllers
 {
+    [Route("produtos")]
     public class ProdutosController : BaseController
     {
         private readonly IProdutoRepository _produtoRepository;
@@ -26,12 +27,13 @@ namespace DevTraining.App.Controllers
             _mapper = mapper;
         }
 
+        [Route("lista-de-produtos")]
         public async Task<IActionResult> Index()
         {
             return View(_mapper.Map<IEnumerable<ProdutoViewModel>>(await _produtoRepository.ObterProdutosFornecedores()));
         }
 
-
+        [Route("detalhes-de-produtos")]
         public async Task<IActionResult> Details(Guid id)
         {
             var produtoViewModel = await ObterProduto(id);
@@ -44,6 +46,7 @@ namespace DevTraining.App.Controllers
             return View(produtoViewModel);
         }
 
+        [Route("criar-produtos")]
         public async Task<IActionResult> Create()
         {
             var produtoViewModel = await PopularFornecedores(new ProdutoViewModel());
@@ -52,6 +55,7 @@ namespace DevTraining.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("criar-produtos")]
         public async Task<IActionResult> Create(ProdutoViewModel produtoViewModel)
         {
             produtoViewModel = await PopularFornecedores(produtoViewModel);
@@ -69,6 +73,7 @@ namespace DevTraining.App.Controllers
             return RedirectToAction("Index");
         }
 
+        [Route("atualizar-produtos/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
             var produtoViewModel = await ObterProduto(id);
@@ -83,6 +88,7 @@ namespace DevTraining.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("atualizar-produtos/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id, ProdutoViewModel produtoViewModel)
         {
             if (id != produtoViewModel.Id)
@@ -118,6 +124,7 @@ namespace DevTraining.App.Controllers
             return RedirectToAction("Index");
         }
 
+        [Route("excluir-produtos/{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var produto = await ObterProduto(id);
@@ -132,6 +139,7 @@ namespace DevTraining.App.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Route("excluir-produtos/{id:guid}")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var produto = ObterProduto(id);
