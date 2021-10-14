@@ -61,7 +61,9 @@ namespace DevTraining.App
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/erro/500");
+                app.UseStatusCodePagesWithRedirects("/erro/{0}");
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -69,7 +71,7 @@ namespace DevTraining.App
             app.UseRouting();
             app.UseAuthentication();
             app.UseGlobalizationConfig();
-            app.UseAuthorization();            
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
