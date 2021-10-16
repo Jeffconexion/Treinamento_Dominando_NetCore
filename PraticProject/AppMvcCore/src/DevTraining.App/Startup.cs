@@ -20,7 +20,7 @@ namespace DevTraining.App
                 .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", true, true)
                 .AddEnvironmentVariables();
 
-            if (hostEnvironment.IsDevelopment())
+            if (hostEnvironment.IsProduction())
             {
                 builder.AddUserSecrets<Startup>();
             }
@@ -61,12 +61,12 @@ namespace DevTraining.App
             }
             else
             {
-                //app.UseExceptionHandler("/Home/Error");
                 app.UseExceptionHandler("/erro/500");
                 app.UseStatusCodePagesWithRedirects("/erro/{0}");
-                app.UseHsts();
+                app.UseHsts();//segurança
             }
-            app.UseHttpsRedirection();
+
+            app.UseHttpsRedirection();//segurança
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
