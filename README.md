@@ -2,7 +2,7 @@
 
 ### Sinopse ###
 <p> 
-  Treinamento intermediário, com foco no .net core.
+  Treinamento com foco na tecnologia .net core 3.1, persistindo no SQL Server.
 </p>
 
 ### Tópicos ###
@@ -18,7 +18,6 @@
 * Desenvolvendo uma aplicação MVC core completa.
 
 
- 
 ### Projeto ###
 
 <p> 
