@@ -26,6 +26,6 @@ Foi desenvolvido um projeto para cadastramento de fornecedor que oferece um dete
 </p> 
 
 <p align="center">
-  <img src="https://github.com/Jeffconexion/Treinamento_Dominando_NetCore/blob/main/GifLinkdin.gif" /> 
+  <img src="https://github.com/Jeffconexion/Treinamento_Dominando_NetCore/blob/main/projeto.gif" /> 
 </p>
 
