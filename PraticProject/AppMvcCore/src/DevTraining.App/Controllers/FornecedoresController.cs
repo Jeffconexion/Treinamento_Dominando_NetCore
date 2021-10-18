@@ -5,6 +5,7 @@ using DevTraining.Business.Interfaces;
 using DevTraining.Business.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,21 +20,25 @@ namespace DevTraining.App.Controllers
         // private readonly IEnderecoRepository _enderecoRepository;
         private readonly IFornecedorService _fornecedorService;
         private readonly IMapper _mapper;
+        private readonly ILogger<FornecedoresController> _logger;
+
 
         public FornecedoresController(IFornecedorRepository fornecedorRepository,
             IMapper mapper,
             IFornecedorService fornecedorService,
-            INotificador notificador) : base(notificador)
+            INotificador notificador, ILogger<FornecedoresController> logger) : base(notificador)
         {
             _fornecedorRepository = fornecedorRepository;
             _mapper = mapper;
             _fornecedorService = fornecedorService;
+            _logger = logger;
         }
 
         [Route("lista-de-fornecedores")]
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
+            _logger.LogInformation(LoggingConfig.GETFORNECEDOR);
             return View(_mapper.Map<IEnumerable<FornecedorViewModel>>(await _fornecedorRepository.ObterTodos()));
         }
 
@@ -45,6 +50,8 @@ namespace DevTraining.App.Controllers
             if (fornecedorViewModel == null)
                 return NotFound();
 
+
+            _logger.LogInformation(LoggingConfig.DETAILSTFORNECEDOR);
             return View(fornecedorViewModel);
         }
 
@@ -70,6 +77,8 @@ namespace DevTraining.App.Controllers
             if (!OperacaoValida())
                 return View(fornecedorViewModel);
 
+
+            _logger.LogInformation(LoggingConfig.POSTFORNECEDOR);
             return RedirectToAction("Index");
         }
 
@@ -103,6 +112,7 @@ namespace DevTraining.App.Controllers
             if (!OperacaoValida())
                 return View(await ObterFornecedorProdutosEndereco(id));
 
+            _logger.LogInformation(LoggingConfig.UPDATFORNECEDOR);
             return RedirectToAction("Index");
         }
 
@@ -134,6 +144,8 @@ namespace DevTraining.App.Controllers
             if (!OperacaoValida())
                 return View(fornecedor);
 
+
+            _logger.LogInformation(LoggingConfig.DELETTFORNECEDOR);
             return RedirectToAction("Index");
         }
 

@@ -2,10 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using Serilog;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+
 
 namespace DevTraining.App.Controllers
 {
@@ -20,7 +21,17 @@ namespace DevTraining.App.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                _logger.LogInformation(LoggingConfig.APPSTART);
+                return View();
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, LoggingConfig.APPWRONG);
+                return View();
+            }
         }
 
         public IActionResult Privacy()
