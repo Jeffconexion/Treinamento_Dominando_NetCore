@@ -13,10 +13,9 @@
 * Areas.
 * Injeção de dependências.
 * Entity Framework Core.
-* Identity.
 * Configurações.
 * Identity.
-* Aplicação Final.
+* Desenvolvendo uma aplicação MVC core completa.
 
 
  <!--
