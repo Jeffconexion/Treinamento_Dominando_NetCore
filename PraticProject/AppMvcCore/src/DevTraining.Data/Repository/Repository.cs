@@ -10,6 +10,11 @@ using System.Threading.Tasks;
 
 namespace DevTraining.Data.Repository
 {
+    /// <summary>
+    /// No nível da implementação, um repositório é simplesmente uma classe com o código de persistência de dados, 
+    /// coordenada por uma unidade de trabalho (DBContext no EF Core) 
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
     public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity, new()
     {
         protected readonly DevTrainingContext Db;
